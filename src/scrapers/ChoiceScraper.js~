@@ -1,0 +1,36 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import AmazonLink from '../components/ChoiceComponents';
+import {isbnRegex} from './Regexes';
+
+export default class ChoiceScraper {
+
+    constructor(doc) {
+	this.doc = doc;
+    }
+    
+    getISBN() {
+	try {
+	    let isbnText = this.doc.querySelector('.review-summary ul:first-of-type li:first-child').textContent;
+	    return isbnText.match(isbnRegex)[0];
+	} catch(e) {
+	    return '';
+	}
+    }
+
+    getTitle() {
+	try {	   
+	    return this.doc.querySelector('#selectedReviewsForm h1').textContent.trim();
+	} catch(e) {
+	    return '';
+	}
+    }
+
+    getAuthors() {
+	return '';
+    }
+
+    getPrice() {
+	return '';
+    }
+};

@@ -1,0 +1,47 @@
+import React from 'react';
+import {isbnRegex, priceRegex, mlsAuthorsRegex} from './Regexes';
+
+export default class MLSScraper {
+
+    constructor(doc) {
+	this.doc = doc;
+	this.titleAndAuthor = this.doc.querySelector('[id$="TitleAuthorImprint"]');
+	this.isbnAndPrice = this.doc.querySelector('[id$="ISBNs"]');
+    }
+
+    getISBN() {
+	try {
+	    return this.isbnAndPrice.textContent.match(isbnRegex)[0];
+	} catch(e) {
+	    return '';
+	}
+    }
+
+    getTitle() {
+	try {
+	    let title = this.titleAndAuthor.getElementsByClassName('bold')[0];
+	    return title.textContent.trim();
+	} catch(e) {
+	    return '';
+	}
+    }
+
+    getAuthors() {
+	try {
+	    let authors = this.titleAndAuthor.textContent;
+	    return authors.match(mlsAuthorsRegex)[1];
+	} catch(e) {
+	    return '';
+	}
+    }
+
+    getPrice() {
+	try {
+	    return this.isbnAndPrice.textContent.match(priceRegex)[1];
+	} catch(e) {
+	    return '0.0';
+	}
+    }
+
+    
+}

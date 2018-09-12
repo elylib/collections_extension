@@ -1,0 +1,82 @@
+<!doctype html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html>
+<head>
+    <title>Extension's Popup</title>
+
+    <style>
+        body {
+            background: #1a4d8c;
+            color: white;
+            font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+            font-size: 100%;
+            min-width: 300px;
+        }
+
+        #clear-auth {
+            text-align: right;
+            color: white;
+            font-size: 10px;
+            position: absolute;
+            top: 0;
+            right: 5px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+    <!--
+      - JavaScript and HTML must be in separate files: see our Content Security
+      - Policy documentation[1] for details and explanation.
+      -
+      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+     -->
+</head>
+<body>
+<div class="form-container">
+    <h3>Ely Library</h3>
+    <div id="login-form-container">
+        <form name="login-form" id="login-form">
+            <label for="wskey">WSKey: </label>
+            <input type="text" name="wskey" id="wskey"/>
+            <br/>
+            <label for="selector">Your WSU Username: </label>
+            <input type="text" name="selector" id="selector">
+            <br/>
+            <input type="submit" value="Submit"/>
+        </form>
+    </div>
+    <div id="item-form-container" class="hidden">
+        <a id="logout">Logout</a>
+        <div id="item-status"></div>
+        <form name="item-form" id="item-form">
+            <br/>
+            <label for="title-field">Title: </label>
+            <input type="text" name="title-field" id="title-field"/>
+            <br/>
+            <label for="authors-field">Authors: </label>
+            <input type="text" name="authors-field" id="authors-field"/>
+            <br/>
+            <label for="isbn-field">ISBN: </label>
+            <input type="text" name="isbn-field" id="isbn-field"/>
+            <br/>
+            <label for="price-field">Price: </label>
+            <input type="text" name="price-field" id="price-field"/>
+            <input type="hidden" name="url-field" id="url-field"/>
+            <hr/>
+            <label for="subject-area">Subject Area: </label>
+            <select name="subject-area" id="subject-area">
+            </select>
+            <hr/>
+            <input type="submit" value="Submit"/>
+        </form>
+    </div>
+    <div id="request-status"></div>
+</div>
+</body>
+</html>

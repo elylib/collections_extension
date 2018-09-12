@@ -1,0 +1,71 @@
+import React from 'react';
+import {priceRegex, wishlistIsbnRegex, wishlistAuthorsRegex} from './Regexes.js';
+import {extractPrice} from './Utilities';
+
+const amazonBaseUrl = 'https://www.amazon.com';
+
+export default class AmazonWishlistItem {
+
+    constructor(item) {
+	this.item = item;
+	this.itemNameAndUrl = item.querySelector('[id^="itemName_"]');
+    }
+    
+    price() {
+	let price = this.item.querySelector('[id^="itemPrice_"]');
+	try{
+	    return price.getElementsByClassName('a-price-whole')[0].textContent + price.getElementsByClassName('a-price-fraction')[0].textContent;
+	} catch(e) {
+	    price = this.item.getElementsByClassName('itemUsedAndNewPrice')[0];
+	}
+	try {
+	    return extractPrice(price, priceRegex);
+	} catch(e) {
+	    return '0.0';
+	}
+    }
+
+    isbn() {
+	try {
+	    return this.url().match(wishlistIsbnRegex)[1];
+	} catch(e) {
+	    return '';
+	}
+    }
+
+    title() {
+	try {
+	    return this.itemNameAndUrl.textContent.trim();
+	} catch(e) {
+	    return '';
+	}
+    }
+
+    authors() {
+	try {
+	    let byline = this.item.querySelector('[id^="item-byline-"]').textContent;
+	    return byline.match(wishlistAuthorsRegex)[1];
+	} catch(e) {
+	    return '';
+	}
+    }
+
+    url() {
+	try {
+	    let itemAddress = this.itemNameAndUrl.getAttribute('href');
+	    return amazonBaseUrl + itemAddress;
+	} catch(e) {
+	    return '';
+	}
+    }
+
+    toPlainObject() {
+	return {
+	    price: this.price(),
+	    isbn: this.isbn(),
+	    title: this.title(),
+	    authors: this.authors(),
+	    url: this.url()
+	};
+    }
+}

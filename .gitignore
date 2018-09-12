@@ -1,0 +1,8 @@
+# Created by .ignore support plugin (hsz.mobi)
+.tern-port
+*.png
+dist/
+node_modules/
+*.crx
+*.pem
+.idea/

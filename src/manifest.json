@@ -1,0 +1,29 @@
+{
+  "manifest_version": 2,
+
+  "name": "Ely Library Collection Development Extension",
+  "description": "Tools to help Ely Library at Westfield State University complete collection development tasks.",
+  "version": "1.0.2",
+
+  "content_scripts": [{
+    "all_frames": false,
+    "matches": ["<all_urls>"],
+    "js": ["content.js"],
+    "run_at": "document_end"
+  }],
+  "browser_action": {
+    "default_title": "Testing",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "https://collectiondevelopment.herokuapp.com/",
+    "tabs",
+    "activeTab",
+    "storage"
+  ],
+  "icons": {
+    "16": "owl_16.png",
+    "48": "owl_48.png",
+    "128": "owl_128.png"
+  }
+}
