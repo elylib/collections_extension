@@ -1,6 +1,6 @@
 {
   "name": "extension",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Browser extension to aid in collection development",
   "main": "popup.js",
   "author": "Ed Hill <hill.charles2@gmail.com>",
@@ -19,7 +19,6 @@
     "uglifyjs-webpack-plugin": "^1.1.6",
     "webextension-polyfill": "^0.3.0",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.9.7",
     "webpack-merge": "^4.1.1"
   },
   "babel": {
@@ -28,7 +27,6 @@
     ]
   },
   "scripts": {
-    "start": "webpack-dev-server",
     "watch": "webpack --watch",
     "build": "webpack --config webpack.prod.js"
   }

@@ -3,7 +3,7 @@
 
   "name": "Ely Library Collection Development Extension",
   "description": "Tools to help Ely Library at Westfield State University complete collection development tasks.",
-  "version": "1.0.2",
+  "version": "1.0.3",
 
   "content_scripts": [{
     "all_frames": false,

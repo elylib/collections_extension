@@ -6,6 +6,8 @@ import {storeWSKeyAndSelectorId} from "./BrowserAPI";
 import {showItemFormAndTryToGetItemInfo} from "./Interface";
 
 export function sendMidwestItemsToSpreadsheet(items, wskey) {
+    // A Midwest order might have multiple funds on it depending on how the selector
+    // uses it, so we go over and send everything on its own
     for (let fund of Object.getOwnPropertyNames(items)) {
         sendItemsToSpreadsheet(fund, items[fund], wskey, null);
     }
@@ -35,6 +37,7 @@ export function sendPopupItemToSpreadsheet(e) {
 }
 
 export function authenticate(e) {
+    // The WSKey users input to log in is used to authenticate them with our server.
     e.preventDefault();
 
     let selector = DOMElements.selectorInput.value;
@@ -108,6 +111,8 @@ function tryToAuthenticate(wskey) {
 }
 
 function checkResponse(response) {
+    // Fetch API requires us to unpack JSON response and return it in a promise chain rather than just
+    // giving the JSON directly.
     if (response.ok) {
         return response.json();
     }

@@ -44,6 +44,7 @@ function getSelectorSubjectAreas(selector) {
 }
 
 export function buildOptions(selector) {
+    // Get a selector's subject areas and build select options with them
     return getSelectorSubjectAreas(selector).map(item => {
         return '<option value=' + item.code + '>' + item.fullName + '</option>';
     }).join('');
@@ -56,6 +57,7 @@ export function setSubjectAreaSelectBox(selector, subjectArea) {
 }
 
 export function isAValidSelector(selector) {
+    // Verify that a that input comes from one of our listed selectors
     for (let sel of Object.getOwnPropertyNames(Selectors)) {
         if (selector === Selectors[sel]) {
             return true;

@@ -1,3 +1,4 @@
+// cache common DOM elements for performance and verification that we got the correct element
 export const DOMElements = {
     loginFormContainer: document.getElementById('login-form-container'),
     itemFormContainer: document.getElementById('item-form-container'),

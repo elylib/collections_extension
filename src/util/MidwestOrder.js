@@ -13,6 +13,8 @@ export function processMidwestSubmission(wskey) {
 }
 
 export function showMissingFunds() {
+    // This goes over all the items on an order page and alerts if a fund hasn't been selected.
+    // It is easy to forget or miss where you add a fund, hence the need for this.
     for (let item of document.querySelectorAll('#orders .orow')) {
         if (item.querySelector('[id^="oi"]').textContent.indexOf('Fund: ') === -1) {
             let el = document.createElement('p');

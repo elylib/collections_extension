@@ -21,4 +21,4 @@ DOMElements.subjectAreaSelect.addEventListener('change', storeSubjectArea);
 
 DOMElements.logout.addEventListener('click', logout);
 
-DOMElements.itemForm.addEventListener('submit', sendPopupls sItemToSpreadsheet);
+DOMElements.itemForm.addEventListener('submit', sendPopupItemToSpreadsheet);
