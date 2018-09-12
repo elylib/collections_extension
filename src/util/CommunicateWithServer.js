@@ -61,7 +61,7 @@ export function authenticate(e) {
 }
 
 export function getHoldingsInfoFromServer(wskey, item) {
-    return fetch('http://localhost:5000/check_holdings', {
+    return fetch('https://collectiondevelopment.herokuapp.com/check_holdings', {
         method: 'POST',
         body: JSON.stringify({
             auth: wskey,
@@ -74,7 +74,7 @@ export function getHoldingsInfoFromServer(wskey, item) {
 }
 
 function sendItemsToSpreadsheet(subjectArea, items, auth, statusDiv) {
-    return fetch("http://localhost:5000/add_to_spreadsheet",
+    return fetch("https://collectiondevelopment.herokuapp.com/add_to_spreadsheet",
         {
             headers: {
                 'Accept': 'application/json',
@@ -101,7 +101,7 @@ function sendItemsToSpreadsheet(subjectArea, items, auth, statusDiv) {
 }
 
 function tryToAuthenticate(wskey) {
-    return fetch('http://localhost:5000/extension_login', {
+    return fetch('https://collectiondevelopment.herokuapp.com/extension_login', {
         method: 'POST',
         body: JSON.stringify({auth: wskey}),
         headers: {
