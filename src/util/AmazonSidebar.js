@@ -1,73 +1,115 @@
 import AmazonWishlistItem from "../scrapers/AmazonWishlistItem";
 import {buildOptions} from "./SubjectAreas";
-import {sendWishlistItemsToSpreadsheet} from './CommunicateWithServer';
 
 const visibleMessages = {
     true: {text: 'All items Visible', style: {color: '#39e603'}},
     false: {text: 'Not all items Visible', style: {color: '#ff3c3c'}}
 };
 
-export class AmazonWishlist {
 
-    constructor(wskey, selector) {
-        this.wskey = wskey;
-        this.items = this.getWishlistItems();
-        this.totalPrice = this.tallyWishlistPrices();
-        this.totalItems = this.items.length;
-        this.allVisible = this.allItemsVisible();
+export function showWishlistSidebar(selector) {
+    let newDiv = document.createElement('div');
+    newDiv.id = 'wishlistSidebar';
+    newDiv.setAttribute('style', 'position: fixed; right: 0; minWidth: 100px; top: 40%; background: #1a4d8c; color: white; padding: 1em');
+    newDiv.appendChild(wishlistSidebarHTML(selector));
+    document.body.appendChild(newDiv);
+}
 
-        this.showWishlistSidebar(selector);
+export function getWishlistItems() {
+    return Array.from(document.querySelectorAll('*[id^="item_"]')).map(element => new AmazonWishlistItem(element).toPlainObject());
+}
 
-        document.getElementById('updateTotal').addEventListener('click', this.update);
-        document.getElementById('sendToSpreadsheet').addEventListener('click', sendWishlistItemsToSpreadsheet);
-    }
+function tallyWishlistPrices(items) {
+    return items.reduce((acc, cur) => acc + parseFloat(cur.price), 0.0).toFixed(2);
+}
 
-    showWishlistSidebar(selector) {
-        let newDiv = document.createElement('div');
-        newDiv.setAttribute('id', 'wishlistSidebar');
-        newDiv.setAttribute('style', 'position: fixed; right: 0; minWidth: 100px; top: 40%; background: #1a4d8c; color: white; padding: 1em');
-        document.body.appendChild(newDiv);
-        newDiv.innerHTML = this.wishlistSidebarHTML(selector);
-    }
+function allItemsVisible() {
+    return !!document.getElementById('endOfListMarker');
+}
 
-    getWishlistItems() {
-        return Array.from(document.querySelectorAll('*[id^="item_"]')).map(element => new AmazonWishlistItem(element).toPlainObject());
-    }
+function wishlistSidebarHTML(selector) {
+    /**
+     * Will make an HTML node that looks essentially like the below example
 
-    tallyWishlistPrices() {
-        return this.items.reduce((acc, cur) => acc + parseFloat(cur.price), 0.0).toFixed(2);
-    }
+     <p id="totalNumberOfItems"></p>
+     <p id="totalCost"></p>
+     <p id="allItemsVisible" style="color: ${color}">${visibleText}</p>
+     <label for="subject-area">Subject Area: </label>
+     <select name="subject-area" id="subject-area"></select>
+     <input type="button" id="updateTotal" value="Update Totals"/>
+     <input type="button" id="sendToSpreadsheet" value="Send to Spreadsheet"/>
+     <p id="request-status"></p>
+     */
+    let items = getWishlistItems();
+    let totalPrice = tallyWishlistPrices(items);
+    let totalItems = items.length;
+    let allVisible = allItemsVisible();
+    let color = visibleMessages[allVisible].style.color;
+    let visibleText = visibleMessages[allVisible].text;
+    let frag = document.createDocumentFragment();
 
-    allItemsVisible() {
-        return !!document.getElementById('endOfListMarker');
-    }
+    let totalItemsP = document.createElement('p');
+    totalItemsP.id = 'totalNumberOfItems';
+    totalItemsP.textContent = totalNumberOfItemsText(totalItems);
+    frag.appendChild(totalItemsP);
 
-    wishlistSidebarHTML(selector) {
-        let color = visibleMessages[this.allVisible].style.color;
-        let visibleText = visibleMessages[this.allVisible].text;
-        let subjectAreas = buildOptions(selector);
-        return `
-<div id="amazon-sidebar">
-    <p># of items: <span id="totalNumberOfItems">${this.totalItems}</span></p>
-    <p>Total amount: <span id="totalCost">$${this.totalPrice}</span></p>
-    <p style="color: ${color}"><span id="allItemsVisible">${visibleText}</span></p>
-    <label for="subject-area">Subject Area: </label>
-    <select name="subject-area" id="subject-area">${subjectAreas}</select>
-    <br/><br/>
-    <input type="button" id="updateTotal" value="Update Totals"/>
-    <input type="button" id="sendToSpreadsheet" value="Send to Spreadsheet"/>
-    <div id="request-status"></div>
-</div>
-`;
-    }
+    let totalCostP = document.createElement('p');
+    totalCostP.id = 'totalCost';
+    totalCostP.textContent = totalPriceText(totalPrice);
+    frag.appendChild(totalCostP);
 
-    update() {
-        this.items = this.getWishlistItems();
-        this.totalItems = this.items.length;
-        this.totalPrice = this.tallyWishlistPrices();
-        this.allVisible = this.allItemsVisible();
-        document.getElementById('totalCost').textContent = this.totalItems;
-        document.getElementById('allItemsVisible').textContent = this.allVisible;
-        document.getElementById('totalCost').textContent = this.totalPrice;
-    }
+    let allVisibleP = document.createElement('p');
+    allVisibleP.id = 'allItemsVisible';
+    allVisibleP.style.color = color;
+    allVisibleP.textContent = visibleText;
+    frag.appendChild(allVisibleP);
+
+    let subjectAreaLabel = document.createElement('label');
+    subjectAreaLabel.setAttribute('for', 'subject-area');
+    frag.appendChild(subjectAreaLabel);
+
+    let selectSubjectArea = document.createElement('select');
+    selectSubjectArea.id = 'subject-area';
+    selectSubjectArea.appendChild(buildOptions(selector));
+    frag.appendChild(selectSubjectArea);
+
+    frag.appendChild(document.createElement('br'));
+
+    let updateButton = document.createElement('input');
+    updateButton.setAttribute('type', 'button');
+    updateButton.id = 'updateTotal';
+    updateButton.value = 'Update Totals';
+    frag.appendChild(updateButton);
+
+    let submitButton = document.createElement('input');
+    submitButton.setAttribute('type', 'button');
+    submitButton.id = 'sendToSpreadsheet';
+    submitButton.value = 'Send to Spreadsheet';
+    frag.appendChild(submitButton);
+
+    let statusP = document.createElement('p');
+    statusP.id = 'request-status';
+    frag.appendChild(statusP);
+
+    return frag;
+}
+
+export function update() {
+    let items = getWishlistItems();
+    let totalItems = items.length;
+    let totalPrice = tallyWishlistPrices(items);
+    let allVisible = allItemsVisible();
+
+    document.getElementById('totalNumberOfItems').textContent = totalNumberOfItemsText(totalItems);
+    document.getElementById('allItemsVisible').textContent = visibleMessages[allVisible].text;
+    document.getElementById('allItemsVisible').style.color = visibleMessages[allVisible].style.color;
+    document.getElementById('totalCost').textContent = totalPriceText(totalPrice);
+}
+
+function totalNumberOfItemsText(totalItems) {
+    return "# of items: " + totalItems;
+}
+
+function totalPriceText(totalPrice) {
+    return "Total amount: " + totalPrice;
 }

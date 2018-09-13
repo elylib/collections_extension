@@ -21,7 +21,7 @@ export function scraperFactory(curUrl) {
         scraper = new AmazonScraper(curUrl);
     } else if (isChoiceReview(curUrl)) {
         scraper = new ChoiceScraper(curUrl);
-        showAmazonLink(document, scraper.getISBN());
+        showAmazonLink(scraper.getISBN());
     } else if (isMidwestProduct(curUrl)) {
         scraper = new MLSScraper(curUrl);
     } else {

@@ -44,15 +44,27 @@ function getSelectorSubjectAreas(selector) {
 }
 
 export function buildOptions(selector) {
-    // Get a selector's subject areas and build select options with them
-    return getSelectorSubjectAreas(selector).map(item => {
-        return '<option value=' + item.code + '>' + item.fullName + '</option>';
-    }).join('');
+    /**
+     * Get a selector's subject areas and build select options
+     *
+     * @subjectArea array  subject area objects above
+     *
+     * return a document fragment to be appended to the Select node
+     */
+
+    let frag = document.createDocumentFragment();
+    getSelectorSubjectAreas(selector).forEach(item => {
+        let newOption = document.createElement('option');
+        newOption.value = item.code;
+        newOption.textContent = item.fullName;
+        frag.appendChild(newOption);
+    });
+    return frag;
 }
 
 export function setSubjectAreaSelectBox(selector, subjectArea) {
     let selectorSubjectAreas = getSelectorSubjectAreas(selector);
-    DOMElements.subjectAreaSelect.innerHTML = buildOptions(selector);
+    DOMElements.subjectAreaSelect.appendChild(buildOptions(selector));
     DOMElements.subjectAreaSelect.value = subjectArea ? subjectArea : selectorSubjectAreas[0].code;
 }
 

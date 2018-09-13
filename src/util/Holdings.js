@@ -9,7 +9,8 @@ const holdingsInfo = {
 };
 
 function updateHoldings(holdingsInfo) {
-    DOMElements.holdingsDiv.innerHTML = '<p style="color: ' + holdingsInfo.style.color + '">' + holdingsInfo.text + '</p>';
+    DOMElements.holdingsDiv.style.color = holdingsInfo.style.color;
+    DOMElements.holdingsDiv.textContent = holdingsInfo.text;
 }
 
 export function checkHoldings(item, wskey) {

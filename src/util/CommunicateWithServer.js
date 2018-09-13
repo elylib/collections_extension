@@ -4,6 +4,7 @@ import {DOMElements} from "./DOMElements";
 import {isAValidSelector} from "./SubjectAreas";
 import {storeWSKeyAndSelectorId} from "./BrowserAPI";
 import {showItemFormAndTryToGetItemInfo} from "./Interface";
+import {getWishlistItems} from "./AmazonSidebar";
 
 export function sendMidwestItemsToSpreadsheet(items, wskey) {
     // A Midwest order might have multiple funds on it depending on how the selector
@@ -13,11 +14,14 @@ export function sendMidwestItemsToSpreadsheet(items, wskey) {
     }
 }
 
-export function sendWishlistItemsToSpreadsheet() {
-    let statusDiv = document.getElementById('request-status');
-    let fund = document.getElementById('subject-area').value;
-    setStatusMessage(requestStates.pending, statusDiv);
-    sendItemsToSpreadsheet(fund, this.items, this.wskey, statusDiv);
+export function sendWishlistItemsToSpreadsheet(wskey) {
+    return function() {
+        let items = getWishlistItems();
+        let statusDiv = document.getElementById('request-status');
+        let fund = document.getElementById('subject-area').value;
+        setStatusMessage(requestStates.pending, statusDiv);
+        sendItemsToSpreadsheet(fund, items, wskey, statusDiv);
+    }
 }
 
 export function sendPopupItemToSpreadsheet(e) {

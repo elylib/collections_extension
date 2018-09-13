@@ -1,10 +1,13 @@
 import {isbnRegex} from '../util/Regexes';
 import {GenericScraper} from "./GenericScraper";
 
-export function showAmazonLink(doc, isbn) {
-    let newLI = doc.createElement('li');
-    doc.querySelector('#selectedReviewsForm .review-summary ul').appendChild(newLI);
-    newLI.innerHTML = '<a href="https://amazon.com/s/?field-keywords=' + encodeURIComponent(isbn) + '">Search on Amazon</a>';
+export function showAmazonLink(isbn) {
+    let newLI = document.createElement('li');
+    let link = document.createElement('a');
+    link.setAttribute('href', 'https://amazon.com/s/?field-keywords="' + encodeURIComponent(isbn) + '"');
+    link.textContent = 'Search on Amazon';
+    newLI.appendChild(link);
+    document.querySelector('#selectedReviewsForm .review-summary ul').appendChild(newLI);
 }
 
 export class ChoiceScraper extends GenericScraper {

@@ -18,7 +18,7 @@ export function showMissingFunds() {
     for (let item of document.querySelectorAll('#orders .orow')) {
         if (item.querySelector('[id^="oi"]').textContent.indexOf('Fund: ') === -1) {
             let el = document.createElement('p');
-            el.setAttribute('style', 'color: red');
+            el.style.color = 'red';
             el.textContent = 'Please add a fund.';
             item.querySelector('[id^="cph1_rptOrders_lblOrderInfo_"]').appendChild(el);
         }

@@ -14,6 +14,7 @@ export const requestStates = {
 export function setStatusMessage(status, statusDiv) {
     // request-status div might be dynamically inserted, so we look for it.
     if (statusDiv) {
-        statusDiv.innerHTML = '<p style="color: ' + status.style.color + '">' + status.text + '</p>';
+        statusDiv.style.color = status.style.color;
+        statusDiv.textContent = status.text;
     }
 }

@@ -1,6 +1,7 @@
-import {AmazonWishlist} from "./AmazonSidebar";
+import {showWishlistSidebar, update} from "./AmazonSidebar";
 import {processMidwestSubmission, showMissingFunds} from "./MidwestOrder";
 import {getAllFromLocalStorage} from "./BrowserAPI";
+import {sendWishlistItemsToSpreadsheet} from "./CommunicateWithServer";
 
 export function processIfMultiItemPage() {
     /*
@@ -14,7 +15,9 @@ export function processIfMultiItemPage() {
      */
     if (isAmazonWishlist(window.location.href)) {
         getAllFromLocalStorage().then(({wskey, selector}) => {
-            new AmazonWishlist(wskey, selector)
+            showWishlistSidebar(selector);
+            document.getElementById('updateTotal').addEventListener('click', update);
+            document.getElementById('sendToSpreadsheet').addEventListener('click', sendWishlistItemsToSpreadsheet(wskey));
         })
     } else if (isMidwestCart(window.location.href)) {
         showMissingFunds();
