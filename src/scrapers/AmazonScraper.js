@@ -30,7 +30,7 @@ export class AmazonScraper extends GenericScraper {
          * not extra cruft.
          */
         try {
-            let byline = document.querySelectorAll('#bylineInfo a');
+            let byline = document.querySelectorAll('#bylineInfo a:not(.showMoreLink)');
             return Array.from(byline).map(this.nodeToString).filter(this.isAnAuthor).join(', ');
         } catch (e) {
             return '';

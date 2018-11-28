@@ -27,7 +27,7 @@ export default class AmazonWishlistItem extends GenericScraper {
 
     getISBN() {
         try {
-            return this.url().match(wishlistIsbnRegex)[1];
+            return this.getUrl().match(wishlistIsbnRegex)[1];
         } catch (e) {
             return '';
         }
