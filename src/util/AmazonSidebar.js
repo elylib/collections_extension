@@ -24,6 +24,8 @@ function tallyWishlistPrices(items) {
 }
 
 function allItemsVisible(items) {
+    // endOfListMarker ID is how Amazon knows it's at the end of a wishlist
+    // wishlists show 30 items by default and won't have endOfList marker if fewer than 30 items
     return !!document.getElementById('endOfListMarker') || items.length < 30;
 }
 
