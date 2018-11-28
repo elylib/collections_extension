@@ -23,8 +23,8 @@ function tallyWishlistPrices(items) {
     return items.reduce((acc, cur) => acc + parseFloat(cur.price), 0.0).toFixed(2);
 }
 
-function allItemsVisible() {
-    return !!document.getElementById('endOfListMarker');
+function allItemsVisible(items) {
+    return !!document.getElementById('endOfListMarker') || items.length < 30;
 }
 
 function wishlistSidebarHTML(selector) {
@@ -43,7 +43,7 @@ function wishlistSidebarHTML(selector) {
     let items = getWishlistItems();
     let totalPrice = tallyWishlistPrices(items);
     let totalItems = items.length;
-    let allVisible = allItemsVisible();
+    let allVisible = allItemsVisible(items);
     let color = visibleMessages[allVisible].style.color;
     let visibleText = visibleMessages[allVisible].text;
     let frag = document.createDocumentFragment();
@@ -98,7 +98,7 @@ export function update() {
     let items = getWishlistItems();
     let totalItems = items.length;
     let totalPrice = tallyWishlistPrices(items);
-    let allVisible = allItemsVisible();
+    let allVisible = allItemsVisible(items);
 
     document.getElementById('totalNumberOfItems').textContent = totalNumberOfItemsText(totalItems);
     document.getElementById('allItemsVisible').textContent = visibleMessages[allVisible].text;
