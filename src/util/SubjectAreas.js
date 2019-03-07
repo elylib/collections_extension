@@ -3,7 +3,7 @@ import {DOMElements} from "./DOMElements";
 const Selectors = {
     amber: "amonroe",
     becca: "rbrody",
-    brian: "bhubbar",
+    brian: "bhubbard",
     corinne: "cebbs",
     ed: "chill",
     oliver: "ozeff",
@@ -25,7 +25,7 @@ const SubjectAreas = [
     {code: "CONT", fullName: "Contingency", selector: Selectors.becca},
     {code: "DDA",  fullName: "On Demand", selector: Selectors.suzanne},
     {code: "GARP", fullName: "Geography and Regional Planning", selector: Selectors.brian},
-    {code: "HIST", fullName: "History", selector: Selectors.ed},
+    {code: "HIST", fullName: "History", selector: Selectors.brian},
     {code: "MATH", fullName: "Mathematics", selector: Selectors.corinne},
     {code: "MOVP", fullName: "Movement Sciences", selector: Selectors.corinne},
     {code: "MUSC", fullName: "Music", selector: Selectors.ed},
