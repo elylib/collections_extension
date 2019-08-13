@@ -7,6 +7,7 @@ const Selectors = {
     corinne: "cebbs",
     ed: "chill",
     oliver: "ozeff",
+    sarah: "sloudenslager",
     suzanne: "stiranno"
 };
 
@@ -28,9 +29,9 @@ const SubjectAreas = [
     {code: "HIST", fullName: "History", selector: Selectors.brian},
     {code: "MATH", fullName: "Mathematics", selector: Selectors.corinne},
     {code: "MOVP", fullName: "Movement Sciences", selector: Selectors.corinne},
-    {code: "MUSC", fullName: "Music", selector: Selectors.ed},
+    {code: "MUSC", fullName: "Music", selector: Selectors.sarah},
     {code: "NURS", fullName: "Nursing", selector: Selectors.corinne},
-    {code: "PHIL", fullName: "Philosophy", selector: Selectors.ed},
+    {code: "PHIL", fullName: "Philosophy", selector: Selectors.sarah},
     {code: "POLS", fullName: "Political Science", selector: Selectors.becca},
     {code: "PSYC", fullName: "Psychology", selector: Selectors.amber},
     {code: "REF",  fullName: "Reference", selector: Selectors.brian},
