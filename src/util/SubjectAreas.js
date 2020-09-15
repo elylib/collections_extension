@@ -5,7 +5,7 @@ const Selectors = {
     becca: "rbrody",
     brian: "bhubbard",
     corinne: "cebbs",
-    ed: "chill",
+    ian: "imatzen",
     oliver: "ozeff",
     sarah: "sloudenslager",
     suzanne: "stiranno"

@@ -1,6 +1,6 @@
 {
   "name": "extension",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "Browser extension to aid in collection development",
   "main": "popup.js",
   "author": "Ed Hill <hill.charles2@gmail.com>",
