@@ -33,7 +33,7 @@ const SubjectAreas = [
     {code: "NURS", fullName: "Nursing", selector: Selectors.corinne},
     {code: "PHIL", fullName: "Philosophy", selector: Selectors.sarah},
     {code: "POLS", fullName: "Political Science", selector: Selectors.becca},
-    {code: "PSYC", fullName: "Psychology", selector: Selectors.amber},
+    {code: "PSYC", fullName: "Psychology", selector: Selectors.sarah},
     {code: "REF",  fullName: "Reference", selector: Selectors.brian},
     {code: "SOCW", fullName: "Social Work", selector: Selectors.oliver},
     {code: "SOCI", fullName: "Sociology", selector: Selectors.becca},
