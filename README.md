@@ -1,3 +1,9 @@
+# DEPRECATED
+
+This repository is no longer supported, please consider using the GOBI service instead.
+
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
 ## Ely Library Browser Extension
 
 This browser extension for Chromium (Chrome, Vivaldi, Opera) and Firefox browsers adds functionality to several sites for collection development activities. Currently, the sites include Amazon, Choice, and Midwest Library Services. It also makes an attempt to pull item information for any given page, though there are no guarantees.
